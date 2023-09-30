@@ -1,7 +1,8 @@
 import pygame
+from config import *
 
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+screen = pygame.display.set_mode((screen_width, screen_height))
 clock = pygame.time.Clock()
 running = True
 
@@ -11,7 +12,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("purple")
+    screen.fill("black")
 
     pygame.display.flip()
 
