@@ -1,12 +1,17 @@
 import pygame
 import pygame_menu
+from config import screen_width,screen_height
+from level import *
 
 #INICIALIZADOR PYGAME
 pygame.init()
 
 #CONFIGURAÇÕES DE TELA
-largura, altura = 1280, 768
+largura = screen_width
+altura = screen_height
 tela = pygame.display.set_mode((largura, altura))
+nivel = Level(tela)
+
 
 #FUNÇÃO PARA MOSTRAR O MENU INICIAL
 def menu_inicial():
@@ -24,13 +29,10 @@ def menu_inicial():
     
     #FUNÇÃO INICIAR JOGO
     def iniciar_jogo():
-        pass
+            pass
 
     #FUNÇÃO PARA MOSTRAR OS INTEGRANTES
     def mostrar_integrantes():
-        
-        #MENU INTEGRANTES DO PROJETO
-        menu_integrantes = pygame_menu.Menu("Integrantes", largura, altura, theme=pygame_menu.themes.THEME_DARK)
 
         #ADICIONA OS NOMES DOS INTEGRANTES
         menu_integrantes.add.label("Gabriel Resende")
@@ -54,8 +56,8 @@ def menu_inicial():
         menu_selecaofase = pygame_menu.Menu("Seleção de fase", largura, altura, theme=pygame_menu.themes.THEME_DARK)
 
         #ADICIONA OS BOTÕES DE SELEÇÃO DE FASE
-        menu_selecaofase.add.button("Fase 1", iniciar_jogo)
-        menu_selecaofase.add.button("Fase 2", iniciar_jogo)
+        menu_selecaofase.add.button("Fase 1", nivel.level_1)
+        menu_selecaofase.add.button("Fase 2", nivel.level_2)
 
         #BOTÃO VOLTAR MENU
         menu_selecaofase.add.button("Voltar", menu_inicial)
@@ -74,9 +76,6 @@ def menu_inicial():
 
     #EXECUTA O MENU PRINCIPAL
     menu.mainloop(tela)
-
-#CHAMADA DA FUNÇÃO MENU INICIAL
-menu_inicial()
 
 #ENCERRANDO PYGAME
 #pygame.quit()

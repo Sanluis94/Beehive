@@ -1,9 +1,11 @@
 import pygame
+import sys
+sys.path.append("code")
 from config import *
+from menu import *
 
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
-clock = pygame.time.Clock()
 running = True
 
 while running:
@@ -12,7 +14,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("black")
+    menu_inicial()
 
     pygame.display.flip()
 

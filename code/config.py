@@ -1,3 +1,7 @@
+import pygame
+
+clock = pygame.time.Clock()
+
 vertical_tile_number = 11
 tile_size = 64
 
