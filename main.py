@@ -2,11 +2,12 @@ import pygame
 import sys
 sys.path.append("code")
 from config import *
-from menu import *
+from menu import Menu
 
 pygame.init()
 screen = pygame.display.set_mode((screen_width, screen_height))
 running = True
+menu = Menu(screen,screen_width,screen_height)
 
 while running:
   
@@ -14,7 +15,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    menu_inicial()
+    menu.menu_inicial()
 
     pygame.display.flip()
 
