@@ -4,9 +4,15 @@ from enemies import *
 class Round:
     def __init__(self,screen):
         
-        self.enemy = EnemyA(screen)
+        self.enemyA = EnemyA(screen)
+        self.enemyB = EnemyB(screen)
+        self.enemyC = EnemyC(screen)
 
     def update(self):
         
-        self.enemy.update()
-        self.enemy.x -= 3
+        self.enemyA.update()
+        self.enemyA.x -= 3
+        self.enemyB.update()
+        self.enemyB.x -= 3
+        self.enemyC.update()
+        self.enemyC.x -= 3

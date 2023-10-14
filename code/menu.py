@@ -74,5 +74,3 @@ class Menu:
         #EXECUTA O MENU PRINCIPAL
         menu.mainloop(self.screen)
 
-#ENCERRANDO PYGAME
-#pygame.quit()
