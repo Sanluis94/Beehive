@@ -1,4 +1,5 @@
 import pygame
+from enemies import *
 
 class Bullet():
     
@@ -8,8 +9,8 @@ class Bullet():
         self.x = x
         self.y = y
         self.rect = self.bullet.get_rect(topleft = (self.x,self.y))
+        self.enemyA = EnemyA(self.screen)
     
     def update(self):
-        
         self.screen.blit(self.bullet,(self.rect.x,self.rect.y))
         self.rect.x += 5

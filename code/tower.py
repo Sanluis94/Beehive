@@ -6,7 +6,7 @@ class Pillbox:
         self.screen = screen
         self.image = pygame.image.load("./images/towers/defence_pillbox.png")
         self.x = 200
-        self.y = 275
+        self.y = 100
         self.bullet = Bullet(self.screen,self.x + 30,self.y + 15)
 
     def place_tower(self):

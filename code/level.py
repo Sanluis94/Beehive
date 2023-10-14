@@ -1,6 +1,6 @@
 import pygame
 from config import * 
-from round import Round
+from dijkstra import *
 from tower import *
 from bullet import *
 from collision import *
@@ -12,7 +12,7 @@ class Level:
         self.background = pygame.image.load("./images/levels/block_background.png")
         self.background = pygame.transform.scale(self.background,(screen_width,screen_height))
         self.running = True
-        self.wave = Round(self.screen)
+        self.dijkstra = Dijkstra(self.screen)
         self.collision = Collision(self.screen)
         self.menuBar = MenuBar(self.screen)
         self.pillbox = Pillbox(self.screen)
@@ -27,7 +27,7 @@ class Level:
             self.screen.blit(self.background,(0,0))
             self.menuBar.update()
             self.pillbox.update()
-            self.wave.update()
+            self.dijkstra.update()
 
             pygame.display.flip()
 
@@ -45,7 +45,7 @@ class Level:
             self.screen.blit(self.background,(0,0))
             self.menuBar.update()
             self.pillbox.update()
-            self.enemySmall.update()
+            self.dijkstra.update()
             
             pygame.display.flip()
 
