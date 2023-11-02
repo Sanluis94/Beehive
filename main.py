@@ -5,9 +5,10 @@ from config import *
 from menu import Menu
 
 pygame.init()
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((screen_width + side_panel, screen_height))
 running = True
 menu = Menu(screen,screen_width,screen_height)
+pygame.display.set_caption("Beehive")
 
 while running:
   

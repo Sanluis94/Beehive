@@ -1,37 +1,54 @@
 import pygame
+from pygame.math import Vector2
+import math
 
-class EnemyA():
-    def __init__(self, screen):
-
-        self.screen = screen
-        self.image = pygame.image.load("./images/enemies/enemy_small.png")
-        self.x = 1000
-        self.y = 300
-        self.rect = self.image.get_rect(topleft = (self.x,self.y))
-
-    def update(self):
-        self.screen.blit(self.image,(self.x,self.y))
-
-class EnemyB():
-    def __init__(self, screen):
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self,screen,waypoints,image):
+        pygame.sprite.Sprite.__init__(self)
 
         self.screen = screen
-        self.image = pygame.image.load("./images/enemies/enemy_medium.png")
-        self.x = 1100
-        self.y = 300
-        self.rect = self.image.get_rect(topleft = (self.x,self.y))
+        self.waypoints = waypoints
+        self.pos = Vector2(self.waypoints[0])
+        self.target_waypoint = 1
+        self.speed = 5
+        self.angle = 0
+        self.original_image = image
+        self.image = pygame.transform.rotate(self.original_image,self.angle)
+        self.rect = self.image.get_rect()
+        self.rect.center = self.pos
+
+    def move(self):
+        if self.target_waypoint < len(self.waypoints):
+            self.target = Vector2(self.waypoints[self.target_waypoint])
+            self.movement = self.target - self.pos
+        else:
+            self.kill()
+
+        dist = self.movement.length()
+
+        if dist >= self.speed:
+            self.pos += self.movement.normalize() * self.speed
+        else:
+            if dist != 0:
+                self.pos += self.movement.normalize() * dist
+            self.target_waypoint += 1
+        
+        self.rect.center = self.pos
+
+    def rotate(self):
+
+        dist = self.target - self.pos
+
+        self.angle = math.degrees(math.atan2(-dist[1],dist[0]))
+
+        self.image = pygame.transform.rotate(self.original_image,self.angle)
+        self.rect = self.image.get_rect()
+        self.rect.center = self.pos
+
+    def draw(self):
+        self.screen.blit(self.image,self.rect.center)
 
     def update(self):
-        self.screen.blit(self.image,(self.x,self.y))
-
-class EnemyC():
-    def __init__(self, screen):
-
-        self.screen = screen
-        self.image = pygame.image.load("./images/enemies/enemy_large.png")
-        self.x = 900
-        self.y = 300
-        self.rect = self.image.get_rect(topleft = (self.x,self.y))
-
-    def update(self):
-        self.screen.blit(self.image,(self.x,self.y))
+        self.draw()
+        self.move()
+        self.rotate()
