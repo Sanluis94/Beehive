@@ -9,3 +9,6 @@ tile_size = 32
 
 screen_height = vertical_tile_number * tile_size
 screen_width = horizontal_tile_number * tile_size
+
+animation_steps = 1
+animation_delay = 15

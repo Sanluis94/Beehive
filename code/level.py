@@ -29,7 +29,7 @@ class Level:
         self.pillbox_button = Button(self.screen,screen_width + 30, 120 , pygame.image.load("./assets/towers/defence_pillbox.png"),True)
         self.artillery_button = Button(self.screen,screen_width + 100, 120 , pygame.image.load("./assets/towers/defence_artillery.png"),True)
         self.mines_button = Button(self.screen,screen_width + 170, 120 , pygame.image.load("./assets/towers/defence_mines.png"),True)
-        self.cancel_button = Button(self.screen,screen_width + 30, 180 , pygame.image.load("./assets/towers/defence_artillery.png"),True)
+        self.cancel_button = Button(self.screen,screen_width + 30, 180 , pygame.image.load("./assets/levels/cancel_button.png"),True)
 
     def create_tower(self,mouse_pos):
         self.mouse_tile_x = mouse_pos[0] // tile_size
@@ -76,7 +76,7 @@ class Level:
 
             self.background.update()
             self.enemy_group.update()
-            #self.turret_group.update(self.enemy_group)
+            self.turret_group.update(self.enemy_group)
             for turret in self.turret_group:
                 turret.draw()
 
