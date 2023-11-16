@@ -2,7 +2,7 @@ turret_data = [
 
 {
     "range":90,
-    "cooldown":1500
+    "cooldown":200
 },
 {
     "range":110,

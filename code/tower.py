@@ -60,6 +60,19 @@ class Turret(pygame.sprite.Sprite):
                 self.last_shot = pygame.time.get_ticks()
                 self.target = None
 
+    def upgrade(self):
+        self.upgrade_level += 1
+        self.range = turret_data[self.upgrade_level-1].get("range")
+        self.cooldown = turret_data[self.upgrade_level-1].get("cooldown")
+        
+        self.range_image = pygame.Surface((self.range * 2,self.range * 2))
+        self.range_image.fill((0,0,0))
+        self.range_image.set_colorkey((0,0,0))
+        pygame.draw.circle(self.range_image,"grey100",(self.range,self.range),self.range)
+        self.range_image.set_alpha(100)
+        self.range_rect = self.range_image.get_rect()
+        self.range_rect.center = self.rect.center
+
     def draw(self):
         self.image = pygame.transform.rotate(self.original_image,self.angle-90)
         self.rect = self.image.get_rect()
@@ -73,18 +86,21 @@ class Turret(pygame.sprite.Sprite):
         self.y_dist = 0
 
         for enemy in enemy_group:
-            self.x_dist = enemy.pos[0] - self.x
-            self.y_dist = enemy.pos[1] -self.y
-            self.dist = math.sqrt(self.x_dist ** 2 + self.y_dist ** 2)
-            if self.dist < self.range:
-                self.target = enemy
-                self.angle = math.degrees(math.atan2(-self.y_dist, self.x_dist))
+            if enemy.health > 0:
+                self.x_dist = enemy.pos[0] - self.x
+                self.y_dist = enemy.pos[1] -self.y
+                self.dist = math.sqrt(self.x_dist ** 2 + self.y_dist ** 2)
+                if self.dist < self.range:
+                    self.target = enemy
+                    self.angle = math.degrees(math.atan2(-self.y_dist, self.x_dist))
+                    self.target.health -= Damage
+                    break
 
-    def update(self,enemy_group):
+    def update(self,enemy_group,world):
        
         if self.target:
             self.play_animation()
 
         else:
-            if pygame.time.get_ticks() - self.last_shot > self.cooldown: 
+            if pygame.time.get_ticks() - self.last_shot > (self.cooldown/world.game_speed): 
                 self.pick_target(enemy_group)
