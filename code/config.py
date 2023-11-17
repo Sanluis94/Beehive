@@ -17,7 +17,7 @@ screen_width = horizontal_tile_number * tile_size
 spawn_cooldown = 400
 
 turret_levels = 4
-buy_cost = 100
+buy_cost = 0
 upgrade_cost = 100
 kill_reward = 1
 level_complete_reward = 100

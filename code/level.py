@@ -45,6 +45,7 @@ class Level:
         self.begin_button = Button(self.screen,screen_width + 100, 250 , pygame.image.load("./assets/levels/begin_button.png"),True)
         self.restart_button = Button(self.screen,310, 300 , pygame.image.load("./assets/levels/restart_button.png"),True)
         self.fast_forward_button = Button(self.screen,screen_width + 100, 250 , pygame.image.load("./assets/levels/fast_forward_button.png"),False)
+        self.return_button = Button(self.screen,screen_width + 200, 0 , pygame.image.load("./assets/levels/fast_forward_button.png"),False)
         self.heart = pygame.image.load("./assets/levels/heart.png")
         self.coin = pygame.image.load("./assets/levels/coin.png")
 
@@ -69,12 +70,12 @@ class Level:
     def create_tower(self,mouse_pos):
         self.mouse_tile_x = mouse_pos[0] // tile_size
         self.mouse_tile_y = mouse_pos[1] // tile_size
-        self.mouse_tile_num = (self.mouse_tile_y * vertical_tile_number) + self.mouse_tile_x
+        self.mouse_tile_num = (self.mouse_tile_y * horizontal_tile_number) + self.mouse_tile_x
 
-        if self.background.tile_map[self.mouse_tile_num ] == 7:
+        if self.background.tile_map[self.mouse_tile_num] == 7:
             self.free_space = True
             for turret in self.turret_group:
-                if (self.mouse_tile_x,self.mouse_tile_y) == (self.turret.tile_x, self.turret.tile_y):
+                if (self.mouse_tile_x,self.mouse_tile_y) == (turret.tile_x, turret.tile_y):
                     self.free_space = False
             if self.free_space:
                 self.turret = Turret(self.screen,pygame.image.load("./assets/towers/defence_pillbox.png"),self.mouse_tile_x,self.mouse_tile_y)
@@ -85,7 +86,7 @@ class Level:
         self.mouse_tile_x = mouse_pos[0] // tile_size
         self.mouse_tile_y = mouse_pos[1] // tile_size
         for turret in self.turret_group:
-            if (self.mouse_tile_x,self.mouse_tile_y) == (self.turret.tile_x, self.turret.tile_y):
+            if (self.mouse_tile_x,self.mouse_tile_y) == (turret.tile_x, turret.tile_y):
                 return turret
 
     def clear_selection(self):
@@ -157,6 +158,8 @@ class Level:
                 self.draw_text(str(buy_cost),self.text_font,"grey100",screen_width + 215,135)
                 if self.pillbox_button.draw() or self.artillery_button.draw() or self.mines_button.draw():
                     self.placing_turrets = True
+                if self.return_button.draw():
+                    pass
 
                 if self.placing_turrets:
                     self.cursor_rect = pygame.image.load("./assets/towers/defence_pillbox.png").get_rect()
